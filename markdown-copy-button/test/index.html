@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../node_modules/highlight.js/styles/github.css">
   <meta charset="UTF-8">
   <title>Copybutton testpage</title>
 </head>
@@ -9,13 +8,12 @@
 <p class="view"></p>
 
 <script type="module">
-  import { markdownToHTML } from "./test/test.js";
+  import MarkdownIt from "markdown-it";
+  import markdownCopyButton from "../main.js";
+  const md = new MarkdownIt().use(markdownCopyButton, {});
   const markdownContent = "# Hello World \n\n ```js \n console.log('hisaddas'); \n ``` \n\n\n\n ```js \n console.log('hi'); \n ```";
-  const htmlContent = markdownToHTML(markdownContent);
-  htmlContent.then((html) => {
-    document.querySelector(".view").innerHTML = html;
-  });
-
+  const htmlContent = md.render(markdownContent);
+  document.querySelector(".view").innerHTML = htmlContent;
 </script>
 </body>
 </html>
