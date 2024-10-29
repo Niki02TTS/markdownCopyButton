@@ -17,12 +17,12 @@ npm install markdown-it-copy-button
 
 ```javascript
 import MarkdownIt from 'markdown-it';
-import markdownCopyButton from 'main'; // Pfad zum Plugin
+import markdownCopyButton from 'markdown-it-copy-button';
 
 const md = new MarkdownIt().use(markdownCopyButton, {
     // Options
 });
-const htmlContent = md.render('## Markdown-Inhalt mit Codeblöcken');
+const htmlContent = md.render('## markdown content');
 ```
 ## Options
 | Option         | type   | Default                                                                         | Beschreibung                         |
