@@ -10,7 +10,7 @@
 
 <script type="module">
   import { markdownToHTML } from "./test/test.js";
-  const markdownContent = "# Hello World \n\n ```js \n console.log('hi'); \n ``` \n\n ```js \n console.log('hi'); \n ```";
+  const markdownContent = "# Hello World \n\n ```js \n console.log('hisaddas'); \n ``` \n\n\n\n ```js \n console.log('hi'); \n ```";
   const htmlContent = markdownToHTML(markdownContent);
   htmlContent.then((html) => {
     document.querySelector(".view").innerHTML = html;

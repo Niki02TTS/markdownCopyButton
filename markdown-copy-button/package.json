@@ -1,7 +1,7 @@
 {
   "name": "markdown-copy-button",
   "private": true,
-  "version": ".0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,7 +12,6 @@
     "vite": "^5.4.9"
   },
   "dependencies": {
-    "highlight.js": "^11.10.0",
     "markdown-it": "^14.1.0"
   },
   "description": "a plugin to create a copy button for codeblocks in markdown-it",
