@@ -33,7 +33,7 @@ function addCopyButtonListeners() {
 }
 
 function markdownCopyButton(md, options = {}) {
-    options = { ...defaultOptions, ...options };
+    options = {...defaultOptions, ...options};
 
     function renderButton(origRule) {
         options = Object.assign(defaultOptions, options);
@@ -66,4 +66,5 @@ function markdownCopyButton(md, options = {}) {
         return self.renderToken(tokens, idx, options);
     });
 }
-    module.exports = markdownCopyButton;
+
+module.exports = markdownCopyButton;

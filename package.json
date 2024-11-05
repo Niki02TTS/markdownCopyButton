@@ -1,6 +1,6 @@
 {
   "name": "@creepyniki/markdown-copy-button",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
   },
@@ -9,6 +9,7 @@
   },
   "description": "a plugin to create a copy button for codeblocks in markdown-it",
   "main": "main.js",
+  "types": "main.d.ts",
   "directories": {
     "test": "test"
   },
