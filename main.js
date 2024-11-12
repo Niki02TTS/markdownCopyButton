@@ -2,7 +2,7 @@ const defaultOptions = {
     iconStyle: 'font-size: 20px; opacity: 0.4;',
     buttonStyle: 'position: absolute; top: 4.5px; right: 6px; cursor: pointer; outline: none;',
     buttonClass: 'copyButton',
-    imageFolder: 'copy.svg',
+    imageFolder: 'https://cdn.jsdelivr.net/npm/@creepyniki/markdown-copy-button/assets/copy.svg',
     imageWidth: '16px',
     imageHeight: '16px'
 };
@@ -17,7 +17,7 @@ function copyCode(event) {
 
     navigator.clipboard.writeText(text).then(() => {
         button.title = 'Copied!';
-        img.src = 'copied.svg';
+        img.src = 'https://cdn.jsdelivr.net/npm/@creepyniki/markdown-copy-button/assets/copied.svg';
         setTimeout(() => {
             button.title = 'Copy';
             img.src = imgSRC;
@@ -25,15 +25,25 @@ function copyCode(event) {
     });
 }
 
+function isBrowser() {
+    try {
+        return !!window && !!document && !!navigator;
+    } catch (e) {
+        return false;
+    }
+}
+
 function addCopyButtonListeners() {
-    const buttons = document.querySelectorAll(`.${defaultOptions.buttonClass}`);
-    buttons.forEach(button => {
-        button.addEventListener('click', copyCode);
-    });
+    if (isBrowser()) {
+        const buttons = document.querySelectorAll(`.${defaultOptions.buttonClass}`);
+        buttons.forEach(button => {
+            button.addEventListener('click', copyCode);
+        });
+    }
 }
 
 function markdownCopyButton(md, options = {}) {
-    options = {...defaultOptions, ...options};
+    options = { ...defaultOptions, ...options };
 
     function renderButton(origRule) {
         options = Object.assign(defaultOptions, options);
@@ -43,7 +53,9 @@ function markdownCopyButton(md, options = {}) {
             if (content.length === 0) {
                 return origRender;
             } else {
-                setTimeout(addCopyButtonListeners, 0);
+                if (isBrowser()) {
+                    setTimeout(addCopyButtonListeners, 0);
+                }
                 return `
 <div class="codeBlock" style="position: relative">
     ${origRender}
@@ -67,4 +79,10 @@ function markdownCopyButton(md, options = {}) {
     });
 }
 
-module.exports = markdownCopyButton;
+window.onload = function () {
+    if (isBrowser()) {
+        addCopyButtonListeners();
+    }
+}
+
+export default markdownCopyButton;
