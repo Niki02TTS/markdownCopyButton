@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>hallo test</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <p>test</p>
+    <script type="module">
+    import MarkdownIt from 'markdown-it'
+    import markdownCopyButton from '@creepyniki/markdown-copy-button'
+    const md = new MarkdownIt().use(markdownCopyButton);
+    document.getElementById('app').innerHTML = md.render('# Hello, markdown-copy-button! \n\n```js\nconsole.log("Hello, markdown-cosdsdfpy-button!");\n```');
+    </script>
+  </body>
+</html>
