@@ -7,44 +7,8 @@ const defaultOptions = {
     imageHeight: '16px'
 };
 
-function copyCode(event) {
-    const button = event.currentTarget;
-    const codeBlock = button.closest('.codeBlock');
-    const code = codeBlock.querySelector('code');
-    const text = code.innerText;
-    const img = button.querySelector('img');
-    const imgSRC = defaultOptions.imageFolder;
-
-    navigator.clipboard.writeText(text).then(() => {
-        button.title = 'Copied!';
-        img.src = 'https://cdn.jsdelivr.net/npm/@creepyniki/markdown-copy-button/assets/copied.svg';
-        setTimeout(() => {
-            button.title = 'Copy';
-            img.src = imgSRC;
-        }, 3000);
-    });
-}
-
-function isBrowser() {
-    try {
-        return !!window && !!document && !!navigator;
-    } catch (e) {
-        return false;
-    }
-}
-
-function addCopyButtonListeners() {
-    if (isBrowser()) {
-        const buttons = document.querySelectorAll(`.${defaultOptions.buttonClass}`);
-        buttons.forEach(button => {
-            button.addEventListener('click', copyCode);
-        });
-    }
-}
-
 function markdownCopyButton(md, options = {}) {
-    options = { ...defaultOptions, ...options };
-
+    options = {...defaultOptions, ...options};
     function renderButton(origRule) {
         options = Object.assign(defaultOptions, options);
         return function (tokens, idx, opts, env, self) {
@@ -52,13 +16,36 @@ function markdownCopyButton(md, options = {}) {
             const origRender = origRule(tokens, idx, opts, env, self);
             if (content.length === 0) {
                 return origRender;
-            } else {
-                if (isBrowser()) {
-                    setTimeout(addCopyButtonListeners, 0);
-                }
-                return `
+            }
+            return `
 <div class="codeBlock" style="position: relative">
     ${origRender}
+<script>
+    alert("test");
+</script>
+    <script>
+    console.log('test');
+        function copyCode(event) {
+        const button = event.currentTarget;
+        const codeBlock = button.closest('.codeBlock');
+        const code = codeBlock.querySelector('code');
+        const text = code.innerText;
+        const img = button.querySelector('img');
+        const imgSRC = defaultOptions.imageFolder;
+
+        navigator.clipboard.writeText(text).then(() => {
+            button.title = 'Copied!';
+            img.src = 'https://cdn.jsdelivr.net/npm/@creepyniki/markdown-copy-button/assets/copied.svg';
+            setTimeout(() => {
+                button.title = 'Copy';
+                img.src = imgSRC;
+            }, 3000);
+        });
+    }
+
+   window.copyCode = copyCode;
+    
+</script>
     <button class="${options.buttonClass}" style="${options.buttonStyle}" title="Copy">
         <span style="${options.iconStyle}">
             <img src="${options.imageFolder}" alt="copyIcon" width="${options.imageWidth}" height="${options.imageHeight}">
@@ -66,8 +53,8 @@ function markdownCopyButton(md, options = {}) {
     </button>
 </div>
 `;
-            }
         }
+
     }
 
     md.renderer.rules.code_block = renderButton(md.renderer.rules.code_block || function (tokens, idx, options, env, self) {
@@ -77,12 +64,6 @@ function markdownCopyButton(md, options = {}) {
     md.renderer.rules.fence = renderButton(md.renderer.rules.fence || function (tokens, idx, options, env, self) {
         return self.renderToken(tokens, idx, options);
     });
-}
-
-window.onload = function () {
-    if (isBrowser()) {
-        addCopyButtonListeners();
-    }
 }
 
 export default markdownCopyButton;

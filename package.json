@@ -1,9 +1,10 @@
 {
   "name": "@creepyniki/markdown-copy-button",
-  "version": "1.0.34",
+  "version": "1.0.58",
   "type": "module",
   "scripts": {},
   "dependencies": {
+    "clipboard": "^2.0.11",
     "entities": "^5.0.0",
     "jsdom": "^25.0.1",
     "markdown-it": "^14.1.0"
